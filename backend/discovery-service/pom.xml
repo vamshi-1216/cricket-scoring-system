@@ -19,13 +19,13 @@
     <name>discovery-service</name>
     <version>0.0.1-SNAPSHOT</version>
 
-    <!-- override or inherit java.version from root; set to match root (17) -->
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
     </properties>
 
     <dependencies>
+
         <!-- Eureka Server -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -51,9 +51,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
-    <!-- Spring Cloud dependency management (keeps BOM centralized) -->
+    <!-- Spring Cloud dependency management -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -68,11 +69,22 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot plugin to build executable jar -->
+
+            <!-- Spring Boot plugin to build a runnable fat JAR -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <!-- THIS IS THE IMPORTANT PART -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
     </build>
 
