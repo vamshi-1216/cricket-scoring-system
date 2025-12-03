@@ -16,8 +16,7 @@ spring:
       ddl-auto: update
     show-sql: true
 
-# Disable Spring Security (IMPORTANT!)
-spring:
+  # Merged Security Configuration (correct indentation)
   security:
     user:
       name: admin
