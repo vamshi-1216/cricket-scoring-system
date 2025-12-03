@@ -1,14 +1,14 @@
 server:
-  port: 8081
+  port: ${PORT:8081}
 
 spring:
   application:
-    name: TEAM-SERVICE
+    name: team-service
 
   datasource:
-    url: jdbc:mysql://localhost:3306/cricketdata
-    username: root
-    password: password
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -16,13 +16,21 @@ spring:
       ddl-auto: update
     show-sql: true
 
+# Disable Spring Security (IMPORTANT!)
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+    filter:
+      dispatcher-types: REQUEST,ASYNC
+
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URL}
 
   instance:
     prefer-ip-address: true
-    hostname: localhost
