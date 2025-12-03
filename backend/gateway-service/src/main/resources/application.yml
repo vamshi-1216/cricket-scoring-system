@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}     # Render uses dynamic PORT
 
 spring:
   application:
@@ -16,7 +16,9 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins:
-              - "http://localhost:5173"
+              - "*"        # IMPORTANT FOR RENDER
+              # If you want specific origins:
+              # - "https://your-frontend.onrender.com"
             allowedMethods:
               - GET
               - POST
@@ -28,45 +30,38 @@ spring:
 
       routes:
         - id: team-service
-          uri: lb://TEAM-SERVICE
+          uri: lb://team-service
           predicates:
             - Path=/teams/**
 
         - id: player-service
-          uri: lb://PLAYER-SERVICE
+          uri: lb://player-service
           predicates:
             - Path=/players/**
 
         - id: match-service
-          uri: lb://MATCH-SERVICE
+          uri: lb://match-service
           predicates:
             - Path=/matches/**
 
         - id: scoring-service
-          uri: lb://SCORING-SERVICE
+          uri: lb://scoring-service
           predicates:
             - Path=/api/scoring/**
 
         - id: stats-service
-          uri: lb://STATS-SERVICE
+          uri: lb://stats-service
           predicates:
             - Path=/api/stats/**
-
-        - id: notification-websocket
-          uri: lb://NOTIFICATION-SERVICE
-          predicates:
-            - Path=/ws/**
-          filters:
-            - StripPrefix=1
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      # IMPORTANT: Replace <DISCOVERY_URL> AFTER deployment
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
 
   instance:
     prefer-ip-address: true
-    hostname: localhost
 
 management:
   endpoints:
