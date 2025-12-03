@@ -5,12 +5,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- MULTI-MODULE PARENT -->
+    <!-- MULTI-MODULE PARENT (THIS FIXES YOUR JAVA VERSION) -->
     <parent>
         <groupId>com.vamshi</groupId>
         <artifactId>cricket-scoring-system</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath> 
     </parent>
 
     <artifactId>team-service</artifactId>
@@ -23,13 +23,14 @@
     </properties>
 
     <dependencies>
+
         <!-- Spring Boot Starter Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Security (YOU ADDED IT) -->
+        <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -81,9 +82,10 @@
         </dependencies>
     </dependencyManagement>
 
+
     <build>
         <plugins>
-            <!-- Required to create executable JAR for Render -->
+            <!-- This plugin ensures executable JAR for Docker/Render -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
