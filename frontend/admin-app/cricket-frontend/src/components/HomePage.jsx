@@ -30,6 +30,7 @@ export default function HomePage() {
 
           <ul className="flex gap-10 text-lg">
             <li onClick={() => navigate("/Home")} className="hover:text-white cursor-pointer">Home</li>
+            <li onClick={() => navigate("/add")} className="hover:text-white cursor-pointer">Teams</li>
             <li onClick={() => navigate("/matches")} className="hover:text-white cursor-pointer">Matches</li>
             <li onClick={() => navigate("/players/stats")} className="hover:text-white cursor-pointer">Stats</li>
             <li onClick={() => navigate("/profile")} className="hover:text-white cursor-pointer">Profile</li>
