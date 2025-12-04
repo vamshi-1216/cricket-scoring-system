@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: team-service
+    name: TEAM-SERVICE
 
   datasource:
     url: ${DB_URL}
@@ -15,14 +15,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-  # Merged Security Configuration (correct indentation)
-  security:
-    user:
-      name: admin
-      password: admin
-    filter:
-      dispatcher-types: REQUEST,ASYNC
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 
 eureka:
   client:
