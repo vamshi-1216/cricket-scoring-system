@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:8080}     # Render uses dynamic PORT
+  port: ${PORT:8080}
 
 spring:
   application:
@@ -13,12 +13,12 @@ spring:
           lower-case-service-id: true
 
       globalcors:
-		corsConfigurations:
-		          '[/**]':
-		            allowedOrigins: "*"
-		            allowedMethods: "*"
-		            allowedHeaders: "*"
-            		allowCredentials: true
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
 
       routes:
         - id: team-service
@@ -49,7 +49,6 @@ spring:
 eureka:
   client:
     service-url:
-      # IMPORTANT: Replace <DISCOVERY_URL> AFTER deployment
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
 
   instance:
