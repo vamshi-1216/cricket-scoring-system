@@ -30,7 +30,7 @@ export default function App() {
 
 
         {/* 🏠 Teams */}
-        <Route path="/" element={<TeamList />} />
+        <Route path="/Team" element={<TeamList />} />
         <Route path="/add" element={<TeamForm />} />
         <Route path="/edit/:id" element={<EditTeamForm />} />
         <Route path="/team/:id" element={<TeamDetails />} />
