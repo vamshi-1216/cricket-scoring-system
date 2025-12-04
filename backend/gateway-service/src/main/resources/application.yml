@@ -13,20 +13,12 @@ spring:
           lower-case-service-id: true
 
       globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins:
-              - "*"        # IMPORTANT FOR RENDER
-              # If you want specific origins:
-              # - "https://your-frontend.onrender.com"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders: "*"
-            allowCredentials: true
+		corsConfigurations:
+		          '[/**]':
+		            allowedOrigins: "*"
+		            allowedMethods: "*"
+		            allowedHeaders: "*"
+            		allowCredentials: true
 
       routes:
         - id: team-service
