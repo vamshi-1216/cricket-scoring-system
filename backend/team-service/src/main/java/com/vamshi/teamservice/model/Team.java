@@ -1,6 +1,13 @@
 package com.vamshi.teamservice.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "teams")
@@ -13,13 +20,16 @@ public class Team {
     @Column(name = "name")          // matches DB
     private String name;
 
-    @Column(name = "location")      // matches DB
+    @Column(name = "location")
+   // matches DB
     private String location;
 
-    @Column(name = "coach_name")    // 🔥 FIXED: matches DB column
+    @Column(name = "coach_name")
+    @JsonProperty("coachName") // 🔥 FIXED: matches DB column
     private String coachName;
 
-    @Column(name = "captain")       // matches DB
+    @Column(name = "captain") 
+    @JsonProperty("captain") // matches DB
     private String captain;
 
     public Team() {}

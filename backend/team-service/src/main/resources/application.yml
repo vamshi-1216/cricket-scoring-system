@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: TEAM-SERVICE
+    name: team-service   # 🔥 must be lowercase for gateway + Eureka routing
 
   datasource:
     url: ${DB_URL}
@@ -18,6 +18,16 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
+  # 🔥 Enable JSON + CORS support
+  mvc:
+    cors:
+      mappings:
+        "[/**]":
+          allowed-origins: "*"
+          allowed-methods: "*"
+          allowed-headers: "*"
+          allow-credentials: false
 
 eureka:
   client:
