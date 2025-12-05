@@ -10,9 +10,16 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")          // matches DB
     private String name;
+
+    @Column(name = "location")      // matches DB
     private String location;
+
+    @Column(name = "coach_name")    // 🔥 FIXED: matches DB column
     private String coachName;
+
+    @Column(name = "captain")       // matches DB
     private String captain;
 
     public Team() {}
