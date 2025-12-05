@@ -21,35 +21,46 @@ spring:
             allowCredentials: true
 
       routes:
+
         - id: team-service
           uri: lb://team-service
           predicates:
             - Path=/teams/**
+          filters:
+            - StripPrefix=1
 
         - id: player-service
           uri: lb://player-service
           predicates:
             - Path=/players/**
+          filters:
+            - StripPrefix=1
 
         - id: match-service
           uri: lb://match-service
           predicates:
             - Path=/matches/**
+          filters:
+            - StripPrefix=1
 
         - id: scoring-service
           uri: lb://scoring-service
           predicates:
             - Path=/api/scoring/**
+          filters:
+            - StripPrefix=2
 
         - id: stats-service
           uri: lb://stats-service
           predicates:
             - Path=/api/stats/**
+          filters:
+            - StripPrefix=2
 
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_URL}
 
   instance:
     prefer-ip-address: true
