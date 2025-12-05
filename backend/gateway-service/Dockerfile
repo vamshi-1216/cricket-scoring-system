@@ -13,7 +13,8 @@ RUN mvn -B -f pom.xml -pl backend/gateway-service -am clean package -DskipTests
 FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
 
-COPY --from=build /workspace/backend/gateway-service/target/*SNAPSHOT.jar app.jar
+# Copy generated jar (SNAPSHOT or release)
+COPY --from=build /workspace/backend/gateway-service/target/*.jar app.jar
 
 EXPOSE 8080
 
