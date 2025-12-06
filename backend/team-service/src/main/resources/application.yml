@@ -19,20 +19,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-  datasource:
-    hikari:
-      connection-timeout: 30000
-      maximum-pool-size: 5
-
-  mvc:
-    cors:
-      mappings:
-        "[/**]":
-          allowed-origins: "*"
-          allowed-methods: "*"
-          allowed-headers: "*"
-          allow-credentials: false
-
 eureka:
   client:
     fetch-registry: true
@@ -46,4 +32,4 @@ eureka:
 
 logging:
   level:
-    org.hibernate.SQL: DEBUG
+    org.hibernate.SQL: INFO
