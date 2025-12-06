@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:8081}
+  port: ${PORT:8081}       # Railway dynamically injects PORT
 
 spring:
   application:
@@ -28,6 +28,10 @@ eureka:
 
   instance:
     prefer-ip-address: true
+    hostname: ${RAILWAY_PUBLIC_DOMAIN}     # 🔥 REQUIRED
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    secure-port: 443
     instance-id: ${spring.application.name}:${random.value}
 
 logging:
