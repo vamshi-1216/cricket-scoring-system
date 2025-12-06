@@ -24,7 +24,7 @@ spring:
 
         # 🔥 TEAM SERVICE (Direct URL)
         - id: team-service
-          uri: https://team-production-35c9.up.railway.app
+          uri: lb:://team-service
           predicates:
             - Path=/teams/**
           filters:
