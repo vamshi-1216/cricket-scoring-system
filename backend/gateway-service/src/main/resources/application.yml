@@ -9,7 +9,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false   # keeping manual routing
+          enabled: false
           lower-case-service-id: true
 
       globalcors:
@@ -22,45 +22,45 @@ spring:
 
       routes:
 
-        # 🔥 TEAM-SERVICE (Public hosted — direct URI forwarding)
+        # 🔥 TEAM SERVICE (Direct URL)
         - id: team-service
-          uri: https://cricket-scoring-system-2.onrender.com
+          uri: https://team-production-35c9.up.railway.app
           predicates:
             - Path=/teams/**
-          filters:
-            - StripPrefix=1
 
-        # 🔥 PLAYER SERVICE (internal Eureka routing)
+        # 🔥 PLAYER SERVICE (via Eureka)
         - id: player-service
-          uri: lb://PLAYER-SERVICE
+          uri: lb://player-service
           predicates:
             - Path=/players/**
           filters:
-            - StripPrefix=1
+            - RemoveRequestHeader=Cookie
 
         # 🔥 MATCH SERVICE
         - id: match-service
-          uri: lb://MATCH-SERVICE
+          uri: lb://match-service
           predicates:
             - Path=/matches/**
           filters:
-            - StripPrefix=1
+            - RemoveRequestHeader=Cookie
 
         # 🔥 SCORING SERVICE
         - id: scoring-service
-          uri: lb://SCORING-SERVICE
+          uri: lb://scoring-service
           predicates:
             - Path=/api/scoring/**
           filters:
             - StripPrefix=2
+            - RemoveRequestHeader=Cookie
 
         # 🔥 STATS SERVICE
         - id: stats-service
-          uri: lb://STATS-SERVICE
+          uri: lb://stats-service
           predicates:
             - Path=/api/stats/**
           filters:
             - StripPrefix=2
+            - RemoveRequestHeader=Cookie
 
 eureka:
   client:
@@ -68,12 +68,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: ${EUREKA_URL}
+
   instance:
     prefer-ip-address: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
-
