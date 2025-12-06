@@ -24,7 +24,7 @@ spring:
 
         # 🔥 TEAM SERVICE (Direct URL)
         - id: team-service
-          uri: lb:://team-service
+          uri: lb://team-service
           predicates:
             - Path=/teams/**
           filters:
