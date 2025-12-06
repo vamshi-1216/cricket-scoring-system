@@ -7,10 +7,10 @@ spring:
 
   cloud:
     gateway:
+
       discovery:
         locator:
-          enabled: true
-          lower-case-service-id: true
+          enabled: false   # ❗ disable Ribbon-like auto discovery routing
 
       globalcors:
         corsConfigurations:
@@ -22,40 +22,49 @@ spring:
 
       routes:
 
+        # 🔥 TEAM SERVICE using PUBLIC URL (Railway cannot resolve lb://)
         - id: team-service
-          uri: lb://team-service
+          uri: https://team-production-35c9.up.railway.app
           predicates:
             - Path=/teams/**
           filters:
             - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
+
+        # 🔥 PLAYER SERVICE (you update this public URL later)
         - id: player-service
-          uri: lb://player-service
+          uri: https://your-player-service-domain.up.railway.app
           predicates:
             - Path=/players/**
           filters:
             - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
+
+        # 🔥 MATCH SERVICE
         - id: match-service
-          uri: lb://match-service
+          uri: https://your-match-service-domain.up.railway.app
           predicates:
             - Path=/matches/**
           filters:
             - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
+
+        # 🔥 SCORING SERVICE
         - id: scoring-service
-          uri: lb://scoring-service
+          uri: https://your-scoring-service-domain.up.railway.app
           predicates:
             - Path=/api/scoring/**
           filters:
             - StripPrefix=2
             - RemoveRequestHeader=Cookie
 
+
+        # 🔥 STATS SERVICE
         - id: stats-service
-          uri: lb://stats-service
+          uri: https://your-stats-service-domain.up.railway.app
           predicates:
             - Path=/api/stats/**
           filters:
