@@ -23,7 +23,7 @@ spring:
       routes:
 
         - id: team-service
-          uri:https://cricket-scoring-system-2.onrender.com
+          uri: https://cricket-scoring-system-2.onrender.com
           predicates:
             - Path=/teams/**
           filters:
