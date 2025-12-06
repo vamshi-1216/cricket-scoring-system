@@ -28,7 +28,8 @@ spring:
           predicates:
             - Path=/teams/**
           filters:
-            - PreserveHostHeader   # 👈 Required
+            - PreserveHostHeader
+			- RemoveRequestHeader=Cookie   # 👈 Required
 
         - id: player-service
           uri: lb://player-service
