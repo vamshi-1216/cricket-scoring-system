@@ -15,14 +15,13 @@ spring:
       globalcors:
         corsConfigurations:
           "[/**]":
-            allowedOrigins: "*"
+            allowedOriginPatterns: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
             allowCredentials: true
 
       routes:
 
-        # TEAM SERVICE (via Eureka)
         - id: team-service
           uri: lb://team-service
           predicates:
@@ -31,7 +30,6 @@ spring:
             - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-        # PLAYER SERVICE
         - id: player-service
           uri: lb://player-service
           predicates:
@@ -40,7 +38,6 @@ spring:
             - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-        # MATCH SERVICE
         - id: match-service
           uri: lb://match-service
           predicates:
@@ -49,7 +46,6 @@ spring:
             - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-        # SCORING SERVICE
         - id: scoring-service
           uri: lb://scoring-service
           predicates:
@@ -58,7 +54,6 @@ spring:
             - StripPrefix=2
             - RemoveRequestHeader=Cookie
 
-        # STATS SERVICE
         - id: stats-service
           uri: lb://stats-service
           predicates:
@@ -72,7 +67,6 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      # in Railway env: EUREKA_URL=https://cricket-scoring-system-production.up.railway.app/eureka/
       defaultZone: ${EUREKA_URL}
 
   instance:
