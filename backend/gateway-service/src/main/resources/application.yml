@@ -10,7 +10,8 @@ spring:
 
       discovery:
         locator:
-          enabled: false   # ❗ disable Ribbon-like auto discovery routing
+          enabled: false
+		  lower-case-service-id: true   # ❗ disable Ribbon-like auto discovery routing
 
       globalcors:
         corsConfigurations:
