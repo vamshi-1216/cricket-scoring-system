@@ -27,24 +27,25 @@ spring:
           uri: https://team-production-35c9.up.railway.app
           predicates:
             - Path=/teams/**
+          filters:
+            - StripPrefix=1   # 👈 Required
 
-        # 🔥 PLAYER SERVICE (via Eureka)
         - id: player-service
           uri: lb://player-service
           predicates:
             - Path=/players/**
           filters:
+            - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-        # 🔥 MATCH SERVICE
         - id: match-service
           uri: lb://match-service
           predicates:
             - Path=/matches/**
           filters:
+            - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-        # 🔥 SCORING SERVICE
         - id: scoring-service
           uri: lb://scoring-service
           predicates:
@@ -53,7 +54,6 @@ spring:
             - StripPrefix=2
             - RemoveRequestHeader=Cookie
 
-        # 🔥 STATS SERVICE
         - id: stats-service
           uri: lb://stats-service
           predicates:
