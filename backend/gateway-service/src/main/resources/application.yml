@@ -9,7 +9,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false
+          enabled: true
           lower-case-service-id: true
 
       globalcors:
@@ -28,7 +28,7 @@ spring:
           predicates:
             - Path=/teams/**
           filters:
-            - StripPrefix=1   # 👈 Required
+            - PreserveHostHeader   # 👈 Required
 
         - id: player-service
           uri: lb://player-service
