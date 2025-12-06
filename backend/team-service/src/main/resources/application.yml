@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: team-service   # must match gateway route ID
+    name: team-service
 
   datasource:
     url: ${DB_URL}
@@ -18,6 +18,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
+  datasource:
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 5
 
   mvc:
     cors:
@@ -37,8 +42,8 @@ eureka:
 
   instance:
     prefer-ip-address: true
-    instance-id: ${spring.application.name}:${random.value}   # avoids duplicate instance issues
+    instance-id: ${spring.application.name}:${random.value}
 
 logging:
   level:
-    org.hibernate.SQL: INFO
+    org.hibernate.SQL: DEBUG
