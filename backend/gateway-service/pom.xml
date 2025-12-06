@@ -9,7 +9,7 @@
     <artifactId>gateway-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <!-- IMPORTANT: Spring Boot parent gives default versions -->
+    <!-- Spring Boot version resolver -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -24,27 +24,39 @@
 
     <dependencies>
 
+        <!-- 🔥 Main Gateway -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
+        <!-- 🔥 Eureka Client -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <!-- ❌ REMOVE web (it breaks gateway)
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        -->
 
+        <!-- ✅ Correct replacement -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -53,6 +65,7 @@
 
     </dependencies>
 
+    <!-- Import Spring Cloud BOM -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -67,12 +80,11 @@
 
     <build>
         <plugins>
-
+            <!-- Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
 

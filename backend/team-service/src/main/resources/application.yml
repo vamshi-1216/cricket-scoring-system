@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: team-service   # 🔥 must be lowercase for gateway + Eureka routing
+    name: team-service   # must match gateway route ID
 
   datasource:
     url: ${DB_URL}
@@ -19,7 +19,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-  # 🔥 Enable JSON + CORS support
   mvc:
     cors:
       mappings:
@@ -38,3 +37,8 @@ eureka:
 
   instance:
     prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.value}   # avoids duplicate instance issues
+
+logging:
+  level:
+    org.hibernate.SQL: INFO
