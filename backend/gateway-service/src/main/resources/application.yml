@@ -9,7 +9,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
+          enabled: false   # 🔥 turn off auto routing to avoid override
           lower-case-service-id: true
 
       globalcors:
@@ -22,6 +22,7 @@ spring:
 
       routes:
 
+        # 🔥 TEAM-SERVICE forwarding to public URL
         - id: team-service
           uri: https://cricket-scoring-system-2.onrender.com
           predicates:
@@ -29,6 +30,7 @@ spring:
           filters:
             - StripPrefix=1
 
+        # 🔥 other services still use load balancer if needed later
         - id: player-service
           uri: lb://player-service
           predicates:
