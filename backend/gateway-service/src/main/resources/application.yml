@@ -22,14 +22,14 @@ spring:
 
       routes:
 
-        # 🔥 TEAM SERVICE (Direct URL)
+        # TEAM SERVICE via Eureka
         - id: team-service
           uri: lb://team-service
           predicates:
             - Path=/teams/**
           filters:
             - PreserveHostHeader
-			- RemoveRequestHeader=Cookie   # 👈 Required
+            - RemoveRequestHeader=Cookie
 
         - id: player-service
           uri: lb://player-service
