@@ -18,7 +18,7 @@ export default function TeamForm() {
     setLoading(true);
 
     try {
-      const response = await axios.post("/teams/", team);
+      const response = await axios.post("/teams", team);
 
       console.log("API Response:", response);
 
