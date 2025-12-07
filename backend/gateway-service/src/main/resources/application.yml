@@ -36,8 +36,7 @@ spring:
           predicates:
             - Path=/matches/**
           filters:
-			- StripPrefix=1
-            - RemoveRequestHeader=Cookie
+            - RemoveRequestHeader=Cookie   # ❗ NO StripPrefix here
 
         - id: scoring-service
           uri: https://your-scoring-service-domain.up.railway.app
