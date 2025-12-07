@@ -8,39 +8,23 @@ spring:
   cloud:
     gateway:
 
-      # ❗ Static routing only
       discovery:
         locator:
           enabled: false
-
-      # ⭐ Real CORS config
-      globalcors:
-        add-to-simple-url-handler-mapping: true
-        corsConfigurations:
-          "[/**]":
-            allowedOrigins:
-              - "https://cricket-scoring-system-3gqn.vercel.app"   # your frontend domain
-              - "*"                                                 # fallback for testing
-            allowedHeaders: "*"
-            allowedMethods: "*"
-            allowCredentials: true
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
 
       routes:
 
-        # ⭐ TEAM SERVICE STATIC ROUTE
         - id: team-service
           uri: https://team-production-35c9.up.railway.app
           predicates:
             - Path=/teams/**
           filters:
-            - StripPrefix=1       # 🔥 REQUIRED
+            - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-
-        # ⭐ PLAYER SERVICE (update actual domain later)
         - id: player-service
           uri: https://your-player-service-domain.up.railway.app
           predicates:
@@ -49,7 +33,6 @@ spring:
             - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-        # ⭐ MATCH SERVICE (update url)
         - id: match-service
           uri: https://your-match-service-domain.up.railway.app
           predicates:
@@ -58,7 +41,6 @@ spring:
             - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
-        # ⭐ SCORING SERVICE
         - id: scoring-service
           uri: https://your-scoring-service-domain.up.railway.app
           predicates:
@@ -67,7 +49,6 @@ spring:
             - StripPrefix=2
             - RemoveRequestHeader=Cookie
 
-        # ⭐ STATS SERVICE
         - id: stats-service
           uri: https://your-stats-service-domain.up.railway.app
           predicates:
@@ -78,7 +59,7 @@ spring:
 
 eureka:
   client:
-    register-with-eureka: false     # 🚫 do NOT use discovery when locator disabled
+    register-with-eureka: false
     fetch-registry: false
 
   instance:

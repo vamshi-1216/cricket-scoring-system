@@ -7,15 +7,16 @@ import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @Configuration
-public class CorsConfig {
+public class GlobalCorsConfig {
 
     @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOriginPattern("*");  // Allow all frontend domains
-        config.addAllowedMethod("*");         // GET, POST, PUT, DELETE, OPTIONS
-        config.addAllowedHeader("*");         // Allow all headers
-        config.setAllowCredentials(false);
+
+        config.addAllowedOriginPattern("*");  // allow all origins
+        config.addAllowedHeader("*");         // allow all headers
+        config.addAllowedMethod("*");         // allow all HTTP methods
+        config.setAllowCredentials(true);     // Cookie/Authorization support
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
