@@ -36,6 +36,7 @@ spring:
           predicates:
             - Path=/matches/**
           filters:
+			- StripPrefix=1
             - RemoveRequestHeader=Cookie
 
         - id: scoring-service
