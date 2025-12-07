@@ -25,11 +25,10 @@ spring:
             - RemoveRequestHeader=Cookie
 
         - id: player-service
-          uri: https://your-player-service-domain.up.railway.app
+          uri: https://player-production-2472.up.railway.app
           predicates:
             - Path=/players/**
           filters:
-            - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
         - id: match-service

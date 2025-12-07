@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: PLAYER-SERVICE
+    name: player-service
 
   datasource:
     url: ${DB_URL}
@@ -19,12 +19,12 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
+# ❗ Disable Eureka registration to stop service crash
 eureka:
   client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: ${EUREKA_URL}
+    fetch-registry: false
+    register-with-eureka: false
 
-  instance:
-    prefer-ip-address: true
+logging:
+  level:
+    org.hibernate.SQL: INFO
