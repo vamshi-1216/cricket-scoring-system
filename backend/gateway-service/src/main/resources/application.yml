@@ -22,7 +22,6 @@ spring:
           predicates:
             - Path=/teams/**
           filters:
-            - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
         - id: player-service
