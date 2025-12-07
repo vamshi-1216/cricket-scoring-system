@@ -32,11 +32,10 @@ spring:
             - RemoveRequestHeader=Cookie
 
         - id: match-service
-          uri: https://your-match-service-domain.up.railway.app
+          uri: https://player-production-2472.up.railway.app
           predicates:
             - Path=/matches/**
           filters:
-            - StripPrefix=1
             - RemoveRequestHeader=Cookie
 
         - id: scoring-service
