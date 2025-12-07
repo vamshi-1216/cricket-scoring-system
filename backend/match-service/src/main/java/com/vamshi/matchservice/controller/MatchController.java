@@ -1,6 +1,7 @@
 package com.vamshi.matchservice.controller;
 
 import com.vamshi.matchservice.model.Match;
+
 import com.vamshi.matchservice.service.MatchService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/matches")
 public class MatchController {

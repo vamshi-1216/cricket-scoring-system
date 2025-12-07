@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: MATCH-SERVICE
+    name: match-service
 
   datasource:
     url: ${DB_URL}
@@ -15,16 +15,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
 
 eureka:
   client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: ${EUREKA_URL}
-
-  instance:
-    prefer-ip-address: true
+    register-with-eureka: false
+    fetch-registry: false
