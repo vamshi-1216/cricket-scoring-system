@@ -36,7 +36,7 @@ spring:
           predicates:
             - Path=/teams/**
           filters:
-            - StripPrefix=1         # 🔥 REQUIRED
+            - StripPrefix=0       # 🔥 REQUIRED
             - RemoveRequestHeader=Cookie
 
 
