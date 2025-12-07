@@ -12,9 +12,6 @@ spring:
         locator:
           enabled: false
 
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-
       routes:
 
         - id: team-service
@@ -36,23 +33,7 @@ spring:
           predicates:
             - Path=/matches/**
           filters:
-            - RemoveRequestHeader=Cookie   # ❗ NO StripPrefix here
-
-        - id: scoring-service
-          uri: https://your-scoring-service-domain.up.railway.app
-          predicates:
-            - Path=/api/scoring/**
-          filters:
-            - StripPrefix=2
-            - RemoveRequestHeader=Cookie
-
-        - id: stats-service
-          uri: https://your-stats-service-domain.up.railway.app
-          predicates:
-            - Path=/api/stats/**
-          filters:
-            - StripPrefix=2
-            - RemoveRequestHeader=Cookie
+            - RemoveRequestHeader=Cookie   # ✅ KEEP EXACTLY THIS
 
 eureka:
   client:
