@@ -14,26 +14,29 @@ spring:
 
       routes:
 
+        # ⭐ TEAM SERVICE
         - id: team-service
           uri: https://team-production-35c9.up.railway.app
           predicates:
-            - Path=/teams/**
+            - Path=/teams, /teams/, /teams/**
           filters:
             - RemoveRequestHeader=Cookie
 
+        # ⭐ PLAYER SERVICE
         - id: player-service
           uri: https://player-production-2472.up.railway.app
           predicates:
-            - Path=/players/**
+            - Path=/players, /players/, /players/**
           filters:
             - RemoveRequestHeader=Cookie
 
+        # ⭐ MATCH SERVICE (FIXED — MATCHES ALL CALLS)
         - id: match-service
           uri: https://match-production-5555.up.railway.app
           predicates:
-            - Path=/matches/**
+            - Path=/matches, /matches/, /matches/**
           filters:
-            - RemoveRequestHeader=Cookie   # ✅ KEEP EXACTLY THIS
+            - RemoveRequestHeader=Cookie
 
 eureka:
   client:
