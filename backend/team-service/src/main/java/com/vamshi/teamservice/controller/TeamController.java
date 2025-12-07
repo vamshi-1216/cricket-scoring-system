@@ -3,9 +3,9 @@ package com.vamshi.teamservice.controller;
 import com.vamshi.teamservice.model.Team;
 import com.vamshi.teamservice.service.TeamService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+@CrossOrigin(origins = "*")   // ⭐ FIXES YOUR UI BLOCK ISSUE
 @RestController
 @RequestMapping("/teams")
 public class TeamController {
