@@ -23,43 +23,42 @@ import MainLayout from "./layouts/MainLayout";
 export default function App() {
   return (
     <Router>
-    <MainLayout>
-      <Routes>
+      <MainLayout>
+        <Routes>
 
-        <Route path="/Home" element={<HomePage />} />
+          {/* ⭐ Default Home Page */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Home" element={<HomePage />} />
 
+          {/* 🏠 Teams */}
+          <Route path="/Team" element={<TeamList />} />
+          <Route path="/add" element={<TeamForm />} />
+          <Route path="/edit/:id" element={<EditTeamForm />} />
+          <Route path="/team/:id" element={<TeamDetails />} />
 
-        {/* 🏠 Teams */}
-        <Route path="/Team" element={<TeamList />} />
-        <Route path="/add" element={<TeamForm />} />
-        <Route path="/edit/:id" element={<EditTeamForm />} />
-        <Route path="/team/:id" element={<TeamDetails />} />
+          {/* 👥 Players */}
+          <Route path="/team/:teamId/players" element={<PlayerList />} />
+          <Route path="/team/:teamId/add-player" element={<AddPlayerForm />} />
+          <Route path="/player/edit/:id" element={<EditPlayerForm />} />
 
-        {/* Players */}
-        <Route path="/team/:teamId/players" element={<PlayerList />} />
-        <Route path="/team/:teamId/add-player" element={<AddPlayerForm />} />
-        <Route path="/player/edit/:id" element={<EditPlayerForm />} />
+          {/* 🏏 Matches */}
+          <Route path="/matches" element={<MatchList />} />
+          <Route path="/matches/add" element={<MatchForm />} />
+          <Route path="/matches/:id" element={<MatchDetails />} />
+          <Route path="/matches/edit/:id" element={<MatchForm />} />
 
-        {/* Matches */}
-        <Route path="/matches" element={<MatchList />} />
-        <Route path="/matches/add" element={<MatchForm />} />
-        <Route path="/matches/:id" element={<MatchDetails />} />
-        <Route path="/matches/edit/:id" element={<MatchForm />} />
+          {/* 🎲 Toss */}
+          <Route path="/matches/:matchId/toss" element={<TossPage />} />
 
-        {/* 🎲 Toss Page — Corrected URL */}
-        <Route path="/matches/:matchId/toss" element={<TossPage />} />
+          {/* 📊 Scoring */}
+          <Route path="/match/:matchId/scoring" element={<ScoringPage />} />
+          <Route path="/match/:matchId/stats" element={<MatchStatusPage />} />
 
-        <Route path="/match/:matchId/scoring" element={<ScoringPage />} />
+          {/* ⚔ Player stats */}
+          <Route path="/player/:playerId/stats" element={<PlayerStats />} />
+          <Route path="/players/stats" element={<AllPlayerStatsPage />} />
 
-
-        <Route path="/match/:matchId/stats" element={<MatchStatusPage />} />
-
-        <Route path="/player/:playerId/stats" element={<PlayerStats />} />
-
-        <Route path="/players/stats" element={<AllPlayerStatsPage />} />
-
-
-      </Routes>
+        </Routes>
       </MainLayout>
     </Router>
   );

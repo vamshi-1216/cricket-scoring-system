@@ -1,14 +1,14 @@
 server:
-  port: ${PORT:8085}
+  port: 8085
 
 spring:
   application:
-    name: STATS-SERVICE
+    name: stats-service
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/cricketdata
+    username: root
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -21,10 +21,15 @@ spring:
 
 eureka:
   client:
-    fetch-registry: true
     register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: ${EUREKA_URL}
+      defaultZone: http://localhost:8761/eureka/
 
   instance:
     prefer-ip-address: true
+    hostname: localhost
+
+logging:
+  level:
+    org.hibernate.SQL: INFO

@@ -1,14 +1,14 @@
 server:
-  port: ${PORT:8084}
+  port: 8084
 
 spring:
   application:
-    name: SCORING-SERVICE
+    name: scoring-service
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/cricketdata
+    username: root
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -19,12 +19,23 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
+  kafka:
+    bootstrap-servers: localhost:9092   # If Kafka running locally
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: scoring-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 eureka:
   client:
-    fetch-registry: true
     register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: ${EUREKA_URL}
+      defaultZone: http://localhost:8761/eureka/
 
   instance:
     prefer-ip-address: true

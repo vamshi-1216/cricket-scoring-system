@@ -24,58 +24,82 @@ export default function PlayerList() {
   };
 
   if (error) return <h3 className="text-red-600">{error}</h3>;
-  if (players.length === 0) return <h3>No players added yet.</h3>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Players of Team #{teamId}</h1>
+    <div className="min-h-screen text-[#e6c884] font-['Cinzel'] relative"
+      style={{
+        backgroundImage: "url('/stadium.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
 
-      <Link
-        to={`/team/${teamId}/add-player`}
-        className="px-4 py-2 bg-blue-600 text-white rounded"
-      >
-        ➕ Add Player
-      </Link>
+      {/* dark bg overlay */}
+      <div className="absolute inset-0 bg-black/60"></div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        {players.map((player) => (
-          <div key={player.id} className="border p-4 rounded shadow bg-white text-center">
-            
-            {/* ⭐ Player Photo Display */}
-            {player.photoUrl ? (
-              <img
-                src={player.photoUrl}
-                alt={player.name}
-                className="w-24 h-24 rounded-full mx-auto mb-3 object-cover border"
-              />
-            ) : (
-              <div className="w-24 h-24 rounded-full mx-auto mb-3 bg-gray-300 flex items-center justify-center">
-                📷
+      {/* content */}
+      <div className="relative z-10 p-10">
+        <h1 className="text-4xl font-bold mb-6 tracking-widest">
+          Players of Team #{teamId}
+        </h1>
+
+        {/* ALWAYS show Add Player */}
+        <Link
+          to={`/team/${teamId}/add-player`}
+          className="px-6 py-3 bg-yellow-600 border border-yellow-400 rounded-xl 
+                     hover:scale-105 transition inline-block mb-6"
+        >
+          ➕ Add Player
+        </Link>
+
+        {/* If no players yet */}
+        {players.length === 0 ? (
+          <h3 className="text-xl text-[#e6c884c0]">No players added yet.</h3>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {players.map((player) => (
+              <div
+                key={player.id}
+                className="border border-yellow-700 bg-black/40 p-6 rounded-2xl shadow-lg text-center"
+              >
+
+                {/* Photo */}
+                {player.photoUrl ? (
+                  <img
+                    src={player.photoUrl}
+                    alt={player.name}
+                    className="w-24 h-24 rounded-full mx-auto mb-4 border object-cover"
+                  />
+                ) : (
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 bg-gray-600 flex items-center justify-center border">
+                    📷
+                  </div>
+                )}
+
+                <h3 className="text-2xl font-bold mb-2">{player.name}</h3>
+                <p>🗡 Role: {player.role}</p>
+                <p>🏏 Batting: {player.battingStyle}</p>
+                <p>🎯 Bowling: {player.bowlingStyle}</p>
+
+                <div className="mt-4 flex gap-3 justify-center">
+                  <Link
+                    to={`/player/edit/${player.id}`}
+                    className="px-4 py-2 bg-yellow-600 border border-yellow-400 rounded-xl hover:scale-105 transition"
+                  >
+                    ✏ Edit
+                  </Link>
+
+                  <button
+                    onClick={() => handleDelete(player.id)}
+                    className="px-4 py-2 bg-red-600 border border-red-500 rounded-xl hover:scale-105 transition"
+                  >
+                    🗑 Delete
+                  </button>
+                </div>
               </div>
-            )}
-
-            <h3 className="text-xl font-bold">{player.name}</h3>
-            <p>🏏 Role: {player.role}</p>
-            <p>📝 Batting: {player.battingStyle}</p>
-            <p>🎯 Bowling: {player.bowlingStyle}</p>
-
-            <div className="mt-3 flex gap-2 justify-center">
-              <Link
-                to={`/player/edit/${player.id}`}
-                className="px-3 py-1 bg-yellow-500 text-white rounded"
-              >
-                ✏ Edit
-              </Link>
-
-              <button
-                onClick={() => handleDelete(player.id)}
-                className="px-3 py-1 bg-red-600 text-white rounded"
-              >
-                🗑 Delete
-              </button>
-            </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:8080}
+  port: 8080
 
 spring:
   application:
@@ -8,49 +8,68 @@ spring:
   cloud:
     gateway:
 
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
       globalcors:
         add-to-simple-url-handler-mapping: true
         corsConfigurations:
           "[/**]":
-            allowedOrigins: "*"
+            allowedOriginPatterns: "*"   # 🔥 React access allowed
             allowedHeaders: "*"
             allowedMethods: "*"
-            allowCredentials: true
+            allowCredentials: false      # 🔥 IMPORTANT FIX
 
       routes:
 
         - id: team-service
-          uri: https://team-production-35c9.up.railway.app
+          uri: lb://team-service
           predicates:
             - Path=/teams/**
-          filters:
-            - RemoveRequestHeader=Cookie
 
         - id: player-service
-          uri: https://player-production-2472.up.railway.app
+          uri: lb://player-service
           predicates:
             - Path=/players/**
-          filters:
-            - RemoveRequestHeader=Cookie
 
         - id: match-service
-          uri: https://match-production-5555.up.railway.app
+          uri: lb://match-service
           predicates:
             - Path=/matches/**
-          filters:
-            - RemoveRequestHeader=Cookie
+
+        - id: scoring-service
+          uri: lb://scoring-service
+          predicates:
+            - Path=/scoring/**
+
+        - id: stats-service
+          uri: lb://stats-service
+          predicates:
+            - Path=/api/stats/**
+
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/notifications/**
 
 management:
   endpoints:
     web:
       exposure:
         include: "gateway,health,info,metrics,env,beans"
-
   endpoint:
     gateway:
       enabled: true
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+    hostname: localhost

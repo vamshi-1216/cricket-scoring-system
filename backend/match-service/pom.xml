@@ -9,7 +9,6 @@
     <artifactId>match-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <!-- Standalone Spring Boot parent -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -30,6 +29,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Eureka Client (🔥 REQUIRED) -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
         <!-- Data -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,8 +47,6 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-       
 
         <!-- Lombok -->
         <dependency>

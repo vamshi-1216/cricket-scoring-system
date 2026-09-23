@@ -1,28 +1,35 @@
 server:
-  port: ${PORT:8083}
+  port: 8083   # local port
 
 spring:
   application:
     name: match-service
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/cricketdata
+    username: root
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true     # 🔥 register service
+    fetch-registry: true           # 🔥 discover others
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+
+logging:
+  level:
+    org.hibernate.SQL: INFO

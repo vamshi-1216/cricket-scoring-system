@@ -1,14 +1,14 @@
 server:
-  port: ${PORT:8082}
+  port: 8082   # local port
 
 spring:
   application:
     name: player-service
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/cricketdata
+    username: root
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -19,11 +19,16 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-# ❗ Disable Eureka registration to stop service crash
 eureka:
   client:
-    fetch-registry: false
-    register-with-eureka: false
+    register-with-eureka: true     # 🔥 register service
+    fetch-registry: true           # 🔥 discover others
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
 
 logging:
   level:

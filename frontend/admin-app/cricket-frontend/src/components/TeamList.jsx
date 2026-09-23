@@ -12,7 +12,7 @@ export default function TeamList() {
     axios
       .get("/teams/all")
       .then((res) => setTeams(res.data))
-      .catch(() => setError("Failed to load teams from backend"))
+      .catch(() => setError("⚠ Failed to load teams from backend"))
       .finally(() => setLoading(false));
   }, []);
 
@@ -28,49 +28,92 @@ export default function TeamList() {
     }
   };
 
-  if (loading) return <h2>Loading teams...</h2>;
-  if (error) return <h2 className="text-red-600">{error}</h2>;
+  if (loading)
+    return (
+      <div className="text-center text-2xl text-[#e6c884] p-10">
+        Loading teams...
+      </div>
+    );
+
+  if (error)
+    return <h2 className="text-red-500 text-center text-xl p-6">{error}</h2>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Teams List</h1>
+    <div
+      className="min-h-screen text-[#e6c884] font-['Cinzel'] relative"
+      style={{
+        backgroundImage: "url('/stadium.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/60"></div>
 
-      <Link to="/add" className="px-4 py-2 bg-blue-600 text-white rounded">
-        ➕ Add Team
-      </Link>
+      {/* Content */}
+      <div className="relative z-10 px-8 pt-24 pb-10">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        {teams.map((team) => (
-          <div key={team.id} className="border p-4 rounded shadow bg-white">
-            <h2 className="text-xl font-bold">{team.name}</h2>
-            <p>📍 Location: {team.location}</p>
-            <p>🧑‍🏫 Coach: {team.coachName}</p>
-            <p>🧢 Captain: {team.captain}</p>
+        {/* Top Section Title */}
+        <h1 className="text-5xl font-extrabold tracking-widest mb-6 border-l-4 border-yellow-600 pl-3">
+          TEAMS OF THE REALM
+        </h1>
 
-            <div className="mt-3 flex gap-2">
-              <Link
-                to={`/team/${team.id}/players`}
-                className="px-3 py-1 bg-purple-600 text-white rounded"
-              >
-                👥 Players
-              </Link>
+        {/* Add Team Button */}
+        <Link
+          to="/add"
+          className="inline-block px-6 py-3 bg-yellow-700/40 border border-yellow-500 rounded-xl
+                     hover:scale-105 hover:bg-yellow-600/50 transition font-bold"
+        >
+          ➕ Create New Team
+        </Link>
 
-              <Link
-                to={`/edit/${team.id}`}
-                className="px-3 py-1 bg-yellow-500 text-white rounded"
-              >
-                ✏ Edit
-              </Link>
+        {/* Teams Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+          {teams.map((team) => (
+            <div
+              key={team.id}
+              className="border border-yellow-700 bg-black/40 p-6 rounded-2xl shadow-lg
+                        hover:scale-105 hover:bg-black/50 transition"
+            >
+              <h2 className="text-3xl font-bold mb-2">{team.name}</h2>
+              <p className="text-[#e6c884c0]">📍 Location: {team.location}</p>
+              <p className="text-[#e6c884c0]">🧑‍🏫 Coach: {team.coachName}</p>
+              <p className="text-[#e6c884c0]">🧢 Captain: {team.captain}</p>
 
-              <button
-                onClick={() => handleDelete(team.id)}
-                className="px-3 py-1 bg-red-600 text-white rounded"
-              >
-                🗑 Delete
-              </button>
+              {/* Buttons */}
+              <div className="mt-5 flex gap-3 flex-wrap">
+                <Link
+                  to={`/team/${team.id}/players`}
+                  className="bg-purple-700/40 border border-purple-400 px-4 py-2 rounded-xl hover:bg-purple-600/50 transition"
+                >
+                  👥 View Players
+                </Link>
+
+                <Link
+                  to={`/edit/${team.id}`}
+                  className="bg-yellow-600/40 border border-yellow-400 px-4 py-2 rounded-xl hover:bg-yellow-600/60 transition"
+                >
+                  ✏ Edit
+                </Link>
+
+                <button
+                  onClick={() => handleDelete(team.id)}
+                  className="bg-red-700/40 border border-red-500 px-4 py-2 rounded-xl hover:bg-red-600/60 transition"
+                >
+                  🗑 Delete
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Back Button */}
+        <button
+          onClick={() => navigate("/Home")}
+          className="mt-10 px-6 py-3 bg-black/60 border border-yellow-600 rounded-xl hover:scale-110 transition"
+        >
+          🔙 Back to Home
+        </button>
       </div>
     </div>
   );
